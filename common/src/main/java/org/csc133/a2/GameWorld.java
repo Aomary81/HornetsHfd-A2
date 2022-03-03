@@ -4,6 +4,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.gameobjects.*;
 
@@ -24,14 +25,16 @@ public class GameWorld {
     private Random r;
     private ArrayList<GameObject> gameObjects;
     private Building building;
+    Dimension worldSize;
 
     public GameWorld() {
         init();
     }
 
-    void init() {
+    public void init() {
+        worldSize =new Dimension();
         helipad = new Helipad();
-        river = new River();
+        river = new River(worldSize);
         building = new Building();
         helicopter = new Helicopter();
         fires = new ArrayList<>();
@@ -56,7 +59,7 @@ public class GameWorld {
         }
 */        gameObjects.add(helicopter);
     }
-
+/*
     void draw(Graphics g) {
         g.clearRect(0, 0, DISP_W, DISP_H);
         helipad.draw(g);
@@ -66,7 +69,7 @@ public class GameWorld {
         }
         helicopter.draw(g);
     }
-
+*/
     void tick() {
         ticks++;
 
@@ -171,12 +174,20 @@ public class GameWorld {
         return String.valueOf(fires.size());
     }
     public String getFireSize(){
-        return null;
+        int flame = 0;
+        for(Fire spot: fires){
+            flame = flame + spot.getFireSize();
+        }
+        return String.valueOf(flame);
     }
     public String getDamage(){
         return null;
     }
     public String getLoss(){
         return null;
+    }
+
+    public void setDimension(Dimension worldSize) {
+        this.worldSize = worldSize;
     }
 }
