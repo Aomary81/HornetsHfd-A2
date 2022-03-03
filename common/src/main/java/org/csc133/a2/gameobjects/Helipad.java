@@ -5,7 +5,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 
-public class Helipad {
+public class Helipad extends GameObject{
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
     private Point locationCenter;
@@ -39,5 +39,10 @@ public class Helipad {
         g.drawRect(locationCenter.getX() - squareSize / 2,
                 locationCenter.getY() - squareSize / 2,
                 squareSize, squareSize, 5);
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin) {
+        draw(g);
     }
 }

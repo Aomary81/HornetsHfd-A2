@@ -5,7 +5,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 
-public class River {
+public class River extends GameObject{
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
     private Point location;
@@ -32,5 +32,10 @@ public class River {
     public void draw(Graphics g) {
         g.setColor(ColorUtil.BLUE);
         g.drawRect(start, top, end, bottom);
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin) {
+        draw(g);
     }
 }

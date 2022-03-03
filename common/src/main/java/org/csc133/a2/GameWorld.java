@@ -5,10 +5,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.layouts.BorderLayout;
-import org.csc133.a2.gameobjects.Fire;
-import org.csc133.a2.gameobjects.Helicopter;
-import org.csc133.a2.gameobjects.Helipad;
-import org.csc133.a2.gameobjects.River;
+import org.csc133.a2.gameobjects.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +22,8 @@ public class GameWorld {
     private ArrayList<Fire> fires;
     private ArrayList<Fire> deadFires;
     private Random r;
+    private ArrayList<GameObject> gameObjects;
+    private Building building;
 
     public GameWorld() {
         init();
@@ -33,9 +32,11 @@ public class GameWorld {
     void init() {
         helipad = new Helipad();
         river = new River();
+        building = new Building();
         helicopter = new Helicopter();
         fires = new ArrayList<>();
         deadFires = new ArrayList<>();
+        gameObjects = new ArrayList<>();
         r = new Random();
         fuel = 25000;
         water = 0;
@@ -47,6 +48,13 @@ public class GameWorld {
         fires.get(2).setLocationX(DISP_W / 4 + r.nextInt(DISP_W / 4));
         fires.get(2).setLocationY(DISP_H / 2 + r.nextInt(DISP_H / 4));
         ticks = 0;
+        gameObjects.add(helipad);
+        gameObjects.add(river);
+        gameObjects.add(building);
+/*        for(int i = 0; i < 3; i++) {
+            gameObjects.add(fires.get(i));
+        }
+*/        gameObjects.add(helicopter);
     }
 
     void draw(Graphics g) {
@@ -61,6 +69,7 @@ public class GameWorld {
 
     void tick() {
         ticks++;
+
         if (ticks % 3 == 0) {
             if (!fires.isEmpty()) {
                 for (Fire spot : fires) {
@@ -142,5 +151,32 @@ public class GameWorld {
     // Method for exiting the game
     void quit() {
         Display.getInstance().exitApplication();
+    }
+
+    public ArrayList<GameObject> getGameObjectCollection() {
+        return gameObjects;
+    }
+
+    public String getHeading() {
+        return null;
+    }
+
+    public String getSpeed() {
+        return null;
+    }
+    public String getFuel(){
+        return String.valueOf(fuel);
+    }
+    public String getFires(){
+        return String.valueOf(fires.size());
+    }
+    public String getFireSize(){
+        return null;
+    }
+    public String getDamage(){
+        return null;
+    }
+    public String getLoss(){
+        return null;
     }
 }

@@ -2,13 +2,28 @@ package org.csc133.a2;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
+import org.csc133.a2.views.ControlCluster;
+import org.csc133.a2.views.GlassCockpit;
+import org.csc133.a2.views.MapView;
 
 public class Game extends Form implements Runnable {
     private GameWorld gw;
-
+    private MapView mv;
+    private ControlCluster cc;
+    private GlassCockpit gc;
     public Game() {
         gw = new GameWorld();
+        mv = new MapView(gw);
+        cc = new ControlCluster(gw);
+        gc = new GlassCockpit(gw);
+
+        this.setLayout(new BorderLayout());
+        this.add(BorderLayout.NORTH, gc);
+        this.add(BorderLayout.CENTER, mv);
+        this.add(BorderLayout.SOUTH, cc);
+
         UITimer timer = new UITimer(this);
         timer.schedule(100, true, this);
         // Exit Key
@@ -30,11 +45,12 @@ public class Game extends Form implements Runnable {
     @Override
     public void run() {
         gw.tick();
+        gc.update();
         repaint();
     }
 
     public void paint(Graphics g) {
         super.paint(g);
-        gw.draw(g);
+        //gw.draw(g);
     }
 }

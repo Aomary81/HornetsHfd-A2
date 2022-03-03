@@ -10,7 +10,7 @@ import java.util.Random;
 
 import static com.codename1.ui.CN.*;
 
-public class Fire {
+public class Fire extends GameObject{
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
     private Point location;
@@ -56,7 +56,7 @@ public class Fire {
     }
 
     public void draw(Graphics g) {
-        g.setColor(ColorUtil.rgb(255, 0, 0));
+        g.setColor(ColorUtil.MAGENTA);
         g.fillArc(location.getX() - fireSize / 4,
                 location.getY() - fireSize / 4,
                 fireSize / 2, fireSize / 2,
@@ -66,5 +66,10 @@ public class Fire {
                 SIZE_MEDIUM));
         g.drawString("" + fireSize, location.getX() + (fireSize / 4),
                 location.getY() + (fireSize / 4));
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin) {
+        draw(g);
     }
 }

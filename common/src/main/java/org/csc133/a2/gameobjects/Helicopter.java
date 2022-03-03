@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static com.codename1.ui.CN.*;
 
-public class Helicopter {
+public class Helicopter extends GameObject{
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
     private Point locationHeli, locationTail, center, turning, forwardPoints;
@@ -162,5 +162,10 @@ public class Helicopter {
                 center.getY() + heliSize);
         g.drawString("w: " + water, center.getX() + heliSize,
                 center.getY() + 20 + heliSize);
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin) {
+        draw(g);
     }
 }
