@@ -9,5 +9,9 @@ public abstract class GameObject implements Drawable {
     Point2D location;
     Dimension dimension, worldSize;
 
+    public String toString(){
+        return this.getClass().getSimpleName();
+    }
+
 
 }

@@ -28,11 +28,15 @@ public class GameWorld {
     Dimension worldSize;
 
     public GameWorld() {
+        worldSize = new Dimension();
+        r = new Random();
+        fuel = 25000;
+        water = 0;
+
         init();
     }
 
     public void init() {
-        worldSize =new Dimension();
         helipad = new Helipad();
         river = new River(worldSize);
         building = new Building();
@@ -40,9 +44,6 @@ public class GameWorld {
         fires = new ArrayList<>();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
-        r = new Random();
-        fuel = 25000;
-        water = 0;
         for (int i = 0; i < 3; i++) {
             fires.add(new Fire());
         }
@@ -57,7 +58,7 @@ public class GameWorld {
 /*        for(int i = 0; i < 3; i++) {
             gameObjects.add(fires.get(i));
         }
-*/        gameObjects.add(helicopter);
+*/      gameObjects.add(helicopter);
     }
 /*
     void draw(Graphics g) {

@@ -18,7 +18,8 @@ public class River extends GameObject{
         this.location = new Point2D(0, worldSize.getHeight());
         this.dimension = new Dimension(worldSize.getWidth(),
                 worldSize.getHeight());
-/*        location = new Point(DISP_W / 2,
+        System.err.println("river" + worldSize);
+        /*        location = new Point(DISP_W / 2,
                 DISP_H * 5 / 12);
         start = location.getX() - location.getX();
         end = location.getX() + location.getX();
@@ -43,10 +44,12 @@ public class River extends GameObject{
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
-        g.fillRect(containerOrigin.getX(),// + (int)location.getX(),
-                containerOrigin.getY(),
-                //+ (int)location.getY() - worldSize.getHeight(),
-                dimension.getWidth(), dimension.getHeight());
+        g.drawRect(containerOrigin.getX() + (int)location.getX(),
+                (containerOrigin.getY() + (int)location.getY() -
+                        (worldSize.getHeight())/3 * 2),
+                 dimension.getWidth(),
+                      dimension.getHeight()/10 * 2);
+     //   System.err.println(this);
 
     }
 }
