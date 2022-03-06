@@ -37,7 +37,7 @@ public class GameWorld {
     }
 
     public void init() {
-        helipad = new Helipad();
+        helipad = new Helipad(worldSize);
         river = new River(worldSize);
         building = new Building();
         helicopter = new Helicopter();
@@ -52,13 +52,16 @@ public class GameWorld {
         fires.get(2).setLocationX(DISP_W / 4 + r.nextInt(DISP_W / 4));
         fires.get(2).setLocationY(DISP_H / 2 + r.nextInt(DISP_H / 4));
         ticks = 0;
-        gameObjects.add(helipad);
         gameObjects.add(river);
+        gameObjects.add(helipad);
         gameObjects.add(building);
 /*        for(int i = 0; i < 3; i++) {
             gameObjects.add(fires.get(i));
         }
 */      gameObjects.add(helicopter);
+        System.err.println(helipad.getHelipadX()+ " " + helipad.getHelipadY());
+        System.err.println(helicopter.center.getX()+ " " + helicopter.center.getY());
+
     }
 /*
     void draw(Graphics g) {

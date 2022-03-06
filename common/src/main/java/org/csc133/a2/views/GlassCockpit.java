@@ -2,6 +2,7 @@ package org.csc133.a2.views;
 
 import com.codename1.ui.Container;
 import com.codename1.ui.Label;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.GridLayout;
 import org.csc133.a2.GameWorld;
 
@@ -35,6 +36,7 @@ public class GlassCockpit extends Container {
         this.add(fireSize);
         this.add(damage);
         this.add(loss);
+
     }
 
     public void update(){
@@ -45,5 +47,6 @@ public class GlassCockpit extends Container {
         fireSize.setText(gw.getFireSize());
         damage.setText(gw.getDamage());
         loss.setText(gw.getLoss());
+
     }
 }

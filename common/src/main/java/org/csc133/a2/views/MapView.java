@@ -24,7 +24,6 @@ public class MapView extends Container {
     }
     @Override
     public void paint(Graphics g){
-
         super.paint(g);
 
         for(GameObject go: gw.getGameObjectCollection()){

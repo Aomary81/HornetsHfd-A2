@@ -18,16 +18,9 @@ public class River extends GameObject{
         this.location = new Point2D(0, worldSize.getHeight());
         this.dimension = new Dimension(worldSize.getWidth(),
                 worldSize.getHeight());
-        System.err.println("river" + worldSize);
-        /*        location = new Point(DISP_W / 2,
-                DISP_H * 5 / 12);
-        start = location.getX() - location.getX();
-        end = location.getX() + location.getX();
-        top = location.getY() * 4 / 5;
-        bottom = location.getY() * 2 / 5;
-*/    }
+    }
 
-    // Returns the Top and Bottom shoreline of River
+
     int getRiverNorth() {
         return top;
     }
@@ -35,21 +28,16 @@ public class River extends GameObject{
     int getRiverSouth() {
         return top + bottom;
     }
-/*
-    public void draw(Graphics g) {
-        g.setColor(ColorUtil.BLUE);
-        g.drawRect(start, top, end, bottom);
-    }
-*/
+
     @Override
     public void draw(Graphics g, Point containerOrigin) {
+        g.clearRect(containerOrigin.getX(), containerOrigin.getY(),
+                worldSize.getWidth(), worldSize.getHeight());
         g.setColor(color);
         g.drawRect(containerOrigin.getX() + (int)location.getX(),
                 (containerOrigin.getY() + (int)location.getY() -
-                        (worldSize.getHeight())/3 * 2),
+                        (worldSize.getHeight())/9 * 7),
                  dimension.getWidth(),
-                      dimension.getHeight()/10 * 2);
-     //   System.err.println(this);
-
+                      dimension.getHeight()/9 * 2);
     }
 }

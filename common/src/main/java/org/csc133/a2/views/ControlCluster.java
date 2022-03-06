@@ -2,6 +2,7 @@ package org.csc133.a2.views;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.GridLayout;
 import org.csc133.a2.GameWorld;
 
@@ -26,5 +27,6 @@ public class ControlCluster extends Container {
         drink = new Button();
         brake = new Button();
         accel = new Button();
+
     }
 }

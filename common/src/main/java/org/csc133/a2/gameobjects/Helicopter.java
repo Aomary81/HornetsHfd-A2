@@ -13,7 +13,11 @@ import static com.codename1.ui.CN.*;
 public class Helicopter extends GameObject{
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
-    private Point locationHeli, locationTail, center, turning, forwardPoints;
+    private Point locationHeli;
+    private Point locationTail;
+    public Point center;
+    private Point turning;
+    private Point forwardPoints;
     private int heliSize, tailSize, currentIndex, rXs, rYs;
     private int fuel, rX, rY, speed, x2, y2, water;
     private ArrayList<Point> turn, forward;
