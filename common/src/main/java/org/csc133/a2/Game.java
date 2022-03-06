@@ -4,6 +4,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
+import org.csc133.a2.commands.*;
 import org.csc133.a2.views.ControlCluster;
 import org.csc133.a2.views.GlassCockpit;
 import org.csc133.a2.views.MapView;
@@ -27,19 +28,19 @@ public class Game extends Form implements Runnable {
         UITimer timer = new UITimer(this);
         timer.schedule(100, true, this);
         // Exit Key
-        addKeyListener('Q', evt -> gw.quit());
+        addKeyListener('Q', new Exit(gw));
         //Left Arrow used to turn the helicopter left
-        addKeyListener(-93, evt -> gw.turnLeft());
+        addKeyListener(-93, new TurnLeft(gw));
         // Right Arrow used to turn the helicopter right
-        addKeyListener(-94, evt -> gw.turnRight());
+        addKeyListener(-94, new TurnRight(gw));
         // Up Arrow to speed up the helicopter
-        addKeyListener(-91, evt -> gw.speedUp());
+        addKeyListener(-91, new Accelerate(gw));
         // Down Arrow to slow down and stop the helicopter
-        addKeyListener(-92, evt -> gw.slowDown());
+        addKeyListener(-92, new Brake(gw));
         // dump water
-        addKeyListener('f', evt -> gw.fight());
+        addKeyListener('f', new Fight(gw));
         // drink water
-        addKeyListener('d', evt -> gw.drink());
+        addKeyListener('d', new Drink(gw));
     }
 
     @Override

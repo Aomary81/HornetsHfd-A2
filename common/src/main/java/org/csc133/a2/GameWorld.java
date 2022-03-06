@@ -3,13 +3,14 @@ package org.csc133.a2;
 import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
-import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.gameobjects.*;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import static org.csc133.a2.gameobjects.Helicopter.decelerate;
 
 public class GameWorld {
     private final Button RESTART = new Button("Restart");
@@ -97,12 +98,12 @@ public class GameWorld {
     }
 
     // method to call helicopter command turn left
-    void turnLeft() {
+    public void turnLeft() {
         helicopter.turningL();
     }
 
     // method to call helicopter command turn right
-    void turnRight() {
+    public void turnRight() {
         helicopter.turningR();
     }
 
@@ -113,18 +114,18 @@ public class GameWorld {
 
     // method to call helicopter command to slow down and stop
     void slowDown() {
-        helicopter.decelerate();
+        decelerate();
     }
 
     // Method for filling the water tank on helicopter
-    void drink() {
+    public void drink() {
         if (helicopter.overRiver(river)) {
             helicopter.drinkWater();
         }
     }
 
     // Method for dropping water on fire
-    void fight() {
+    public void fight() {
         for (Fire spot : fires) {
             if (helicopter.overFire(spot)) {
                 if ((water / 2) > spot.getFireSize()) {
@@ -159,7 +160,7 @@ public class GameWorld {
     }
 
     // Method for exiting the game
-    void quit() {
+    public void quit() {
         Display.getInstance().exitApplication();
     }
 
@@ -172,7 +173,7 @@ public class GameWorld {
     }
 
     public String getSpeed() {
-        return null;
+        return String.valueOf(Helicopter.getSpeed());
     }
     public String getFuel(){
         return String.valueOf(fuel);
@@ -196,5 +197,13 @@ public class GameWorld {
 
     public void setDimension(Dimension worldSize) {
         this.worldSize = worldSize;
+    }
+
+    public void accelerate() {
+        helicopter.accelerate();
+    }
+
+    public void brake() {
+        helicopter.decelerate();
     }
 }

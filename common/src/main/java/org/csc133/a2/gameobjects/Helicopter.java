@@ -19,7 +19,13 @@ public class Helicopter extends GameObject{
     private Point turning;
     private Point forwardPoints;
     private int heliSize, tailSize, currentIndex, rXs, rYs;
-    private int fuel, rX, rY, speed, x2, y2, water;
+    private int fuel;
+    private int rX;
+    private int rY;
+    private static int speed;
+    private int x2;
+    private int y2;
+    private int water;
     private ArrayList<Point> turn, forward;
 
     public Helicopter() {
@@ -73,7 +79,7 @@ public class Helicopter extends GameObject{
     }
 
     // changes the speed of the helicopter
-    public void accelerate() {
+    public static void accelerate() {
         if (speed >= 0 && speed < 10) {
             speed++;
         } else {
@@ -82,14 +88,16 @@ public class Helicopter extends GameObject{
     }
 
     // changes the speed of the helicopter
-    public void decelerate() {
+    public static void decelerate() {
         if (speed > 0) {
             speed--;
         } else {
             speed = 0;
         }
     }
-
+    public static int getSpeed() {
+        return speed;
+    }
     // Changes the fuel level
     public int fuelConsumption() {
         fuel = fuel - ((speed * speed) + 5);
