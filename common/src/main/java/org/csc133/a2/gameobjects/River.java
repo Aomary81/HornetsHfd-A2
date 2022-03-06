@@ -6,9 +6,12 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
-public class River extends GameObject{
+public class River extends Fixed{
+
+    private final int riverId;
 
     public River(Dimension worldSize) {
+        riverId = getFixedObjId();
         this.worldSize = worldSize;
         this.color = ColorUtil.BLUE;
         this.location = new Point2D(0, worldSize.getHeight());

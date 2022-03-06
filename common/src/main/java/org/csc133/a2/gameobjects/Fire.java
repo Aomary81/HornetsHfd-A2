@@ -1,7 +1,6 @@
 package org.csc133.a2.gameobjects;
 
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
@@ -12,13 +11,14 @@ import java.util.Random;
 
 import static com.codename1.ui.CN.*;
 
-public class Fire extends GameObject{
-    private int fireSize;
+public class Fire extends Fixed{
+    private int fireSize, fireId;
     private Random r;
 
     public Fire(Dimension worldSize) {
+        fireId = getFixedObjId();
         r = new Random();
-        fireSize = r.nextInt(200) + 200;
+        fireSize = 5 + r.nextInt(10);
         this.worldSize = worldSize;
         this.color = ColorUtil.MAGENTA;
         this.location = new Point2D(500,
@@ -39,11 +39,11 @@ public class Fire extends GameObject{
 
     // Gets the Point coordinate for Fires X and Y and the fire's size
     int getFireX() {
-        return (int)location.getX() - fireSize / 4;
+        return (int)location.getX();
     }
 
     int getFireY() {
-        return (int)location.getY() - fireSize / 4;
+        return (int)location.getY();
     }
 
     public int getFireSize() {
@@ -58,25 +58,16 @@ public class Fire extends GameObject{
         location.setY(locY);
     }
 
-/*    public void draw(Graphics g) {
-        g.setColor(ColorUtil.MAGENTA);
-        g.fillArc(location.getX() - fireSize / 4,
-                location.getY() - fireSize / 4,
-                fireSize / 2, fireSize / 2,
-                0, 360);
-        g.setColor(ColorUtil.WHITE);
-        g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
-                SIZE_MEDIUM));
-        g.drawString("" + fireSize, location.getX() + (fireSize / 4),
-                location.getY() + (fireSize / 4));
-    }
-*/
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
         g.fillArc(containerOrigin.getX() + (int)location.getX() - fireSize/4,
                 containerOrigin.getY() + (int)location.getY() - fireSize/4,
                 fireSize, fireSize, 0, 360);
-        //draw(g);
+        g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
+                SIZE_MEDIUM));
+        g.drawString("" + fireSize,
+                containerOrigin.getX() + (int)location.getX()+ (fireSize/4 *3),
+                containerOrigin.getY() + (int)location.getY() + (fireSize/4 *3));
     }
 }

@@ -6,9 +6,11 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
-public class Helipad extends GameObject{
+public class Helipad extends Fixed{
+    private int helipadId;
 
     public Helipad(Dimension worldSize) {
+        helipadId = getFixedObjId();
         this.worldSize = worldSize;
         this.color = ColorUtil.GRAY;
         this.dimension = new Dimension(200, 200);

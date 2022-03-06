@@ -41,52 +41,24 @@ public class GameWorld {
     public void init() {
         helipad = new Helipad(worldSize);
         river = new River(worldSize);
-        building = new Building();
+        building = new Building(worldSize);
         fire = new Fire(worldSize);
         helicopter = new Helicopter(worldSize);
         fires = new ArrayList<>();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            fires.add(new Fire(worldSize));
-        }
-        fires.get(1).setLocationX(DISP_W / 2 + r.nextInt(DISP_W / 4));
-        fires.get(1).setLocationY(r.nextInt(DISP_H / 4));
-        fires.get(2).setLocationX(DISP_W / 4 + r.nextInt(DISP_W / 4));
-        fires.get(2).setLocationY(DISP_H / 2 + r.nextInt(DISP_H / 4));
         ticks = 0;
         gameObjects.add(river);
         gameObjects.add(helipad);
         gameObjects.add(building);
         gameObjects.add(fire);
-/*        for(int i = 0; i < 3; i++) {
-            gameObjects.add(fires.get(i));
-        }
-*/      gameObjects.add(helicopter);
-        System.err.println(helipad.getHelipadX()+ " " + helipad.getHelipadY());
-        System.err.println(helicopter.center.getX()+ " " + helicopter.center.getY());
+        gameObjects.add(helicopter);
 
     }
-/*
-    void draw(Graphics g) {
-        g.clearRect(0, 0, DISP_W, DISP_H);
-        helipad.draw(g);
-        river.draw(g);
-        for (Fire spot : fires) {
-            spot.draw(g);
-        }
-        helicopter.draw(g);
-    }
-*/
     void tick() {
         ticks++;
-
         if (ticks % 3 == 0) {
-            if (!fires.isEmpty()) {
-                for (Fire spot : fires) {
-                    spot.grow();
-                }
-            }
+            fire.grow();
         }
         helicopter.move();
         fuel = helicopter.fuelConsumption();
@@ -96,8 +68,6 @@ public class GameWorld {
             gameOver();
         }
     }
-
-    // method to call helicopter command turn left
     public void turnLeft() {
         helicopter.turningL();
     }
@@ -107,39 +77,19 @@ public class GameWorld {
         helicopter.turningR();
     }
 
-    // method to call helicopter command to go forward and increase speed
-    void speedUp() {
-        helicopter.accelerate();
-    }
-
-    // method to call helicopter command to slow down and stop
-    void slowDown() {
-        decelerate();
-    }
-
     // Method for filling the water tank on helicopter
     public void drink() {
         if (helicopter.overRiver(river)) {
             helicopter.drinkWater();
         }
     }
-
-    // Method for dropping water on fire
     public void fight() {
-        for (Fire spot : fires) {
-            if (helicopter.overFire(spot)) {
-                if ((water / 2) > spot.getFireSize()) {
-                    deadFires.add(spot);
-                } else {
-                    spot.shrink(water);
+        if (water > fire.getFireSize()) {
+                    fire.shrink(water);
                 }
-            }
-        }
-        fires.removeAll(deadFires);
         helicopter.fightFire();
-    }
 
-    // Losing condition Dialog Window
+    }
     void gameOver() {
         RESTART.addActionListener(actionEvent -> {
             Game game = new Game();
@@ -158,8 +108,6 @@ public class GameWorld {
         dlg.show(DISP_H / 24 * 10, DISP_H / 24 * 10, DISP_W / 24 * 9,
                 DISP_H / 24 * 9);
     }
-
-    // Method for exiting the game
     public void quit() {
         Display.getInstance().exitApplication();
     }
@@ -169,7 +117,7 @@ public class GameWorld {
     }
 
     public String getHeading() {
-        return null;
+        return String.valueOf(helicopter.heading());
     }
 
     public String getSpeed() {

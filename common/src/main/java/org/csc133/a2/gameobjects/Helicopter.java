@@ -1,13 +1,11 @@
 package org.csc133.a2.gameobjects;
 
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
-import org.csc133.a2.GameWorld;
 import org.csc133.a2.interfaces.Steerable;
 
 import java.util.ArrayList;
@@ -15,22 +13,12 @@ import java.util.ArrayList;
 import static com.codename1.ui.CN.*;
 
 public class Helicopter extends GameObject implements Steerable {
-    private final static int DISP_W = Display.getInstance().getDisplayWidth();
-    private final static int DISP_H = Display.getInstance().getDisplayHeight();
-    private Point locationHeli;
-    private Point locationTail;
-    public Point center;
-    private Point turning;
-    private Point forwardPoints;
-    private int heliSize, tailSize, currentIndex, rXs, rYs;
-    private int fuel;
-    private int rX;
-    private int rY;
+    private Point2D turning;
+    private Point2D forwardPoints;
+    private int fuel, currentIndex;
     private static int speed;
-    private int x2;
-    private int y2;
     private int water;
-    private ArrayList<Point> turn, forward;
+    private ArrayList<Point2D> turn, forward;
 
     public Helicopter(Dimension worldSize) {
         this.worldSize = worldSize;
@@ -38,20 +26,12 @@ public class Helicopter extends GameObject implements Steerable {
         this.dimension = new Dimension(50, 50);
         this.location = new Point2D(worldSize.getWidth()/2,
                 worldSize.getHeight());
-        heliSize = 50;
-        tailSize = 100;
-        locationHeli = new Point(DISP_W / 2,
-                DISP_H - 300);
-        locationTail = new Point(locationHeli.getX(), locationHeli.getY());
-        center = new Point(DISP_W / 2, DISP_H - 300);
         turn = new ArrayList<>();
         currentIndex = 0;
         fuel = 25000;
         for (int i = 1; i < 25; i++) {
             double angle = Math.toRadians(360 / 24 * i - 105);
-            rX = (int) ((tailSize * Math.cos(angle)));
-            rY = (int) ((tailSize * Math.sin(angle)));
-            turning = new Point(rX, rY);
+            turning = new Point2D(Math.cos(angle), Math.sin(angle));
             turn.add(turning);
         }
         System.err.println("heli: " + getHelicopterLocationX() + " Heli: " +getHelicopterLocationY());
@@ -60,16 +40,10 @@ public class Helicopter extends GameObject implements Steerable {
 
     // Changes the direction the helicopter is pointing
     public void move() {
-        forward = new ArrayList<>();
-        for (int i = 1; i < 25; i++) {
-            double angle = Math.toRadians(360 / 24 * i - 105);
-            rXs = (int) (Math.cos(angle) * speed);
-            rYs = (int) (Math.sin(angle) * speed);
-            forwardPoints = new Point(rXs, rYs);
-            forward.add(forwardPoints);
-        }
-        center.setX(center.getX() + (forward.get(currentIndex).getX()));
-        center.setY(center.getY() + (forward.get(currentIndex).getY()));
+        location.setX(location.getX() + (turn.get(currentIndex).getX()
+                 * speed));
+        location.setY(location.getY() +
+                (turn.get(currentIndex).getY() * speed));
 
     }
 
@@ -128,11 +102,16 @@ public class Helicopter extends GameObject implements Steerable {
             water = 1000;
         }
     }
+    public int heading(){
+        return currentIndex * 15;
+    }
 
     // Checks to see if center of helicopter is over the river
     public boolean overRiver(River r) {
-        if ((r.getRiverNorth() + heliSize / 2 < center.getY()) &&
-                (r.getRiverSouth() - heliSize / 2 > center.getY())) {
+        if ((r.getRiverNorth() + dimension.getWidth() / 2
+                < getHelicopterLocationY()) &&
+                (r.getRiverSouth() - dimension.getWidth() / 2
+                        > getHelicopterLocationY())) {
             return true;
         } else {
             return false;
@@ -141,10 +120,10 @@ public class Helicopter extends GameObject implements Steerable {
 
     // Check is helicopter is over the fire
     public boolean overFire(Fire f) {
-        if ((f.getFireX() < center.getX()) &&
-                ((f.getFireX() + f.getFireSize()) > center.getX()) &&
-                (f.getFireY() < center.getY()) &&
-                (((f.getFireY() + f.getFireSize()) > center.getY()))) {
+        if ((f.getFireX() < getHelicopterLocationX()) &&
+                ((f.getFireX() + f.getFireSize()) > getHelicopterLocationX()) &&
+                (f.getFireY() < getHelicopterLocationY()) &&
+                (((f.getFireY() + f.getFireSize()) > getHelicopterLocationY()))) {
             return true;
         } else {
             return false;
@@ -153,10 +132,12 @@ public class Helicopter extends GameObject implements Steerable {
 
     // Check to see if Helicopter is over the Helipad
     public boolean isOverHelipad(Helipad pad) {
-        return (pad.getHelipadX() < center.getX()) &&
-                ((pad.getHelipadX() + pad.getHelipadSize()) > center.getX()) &&
-                (pad.getHelipadY() < center.getY()) &&
-                ((pad.getHelipadY() + pad.getHelipadSize()) > center.getY()) &&
+        return (pad.getHelipadX() < getHelicopterLocationX()) &&
+                ((pad.getHelipadX() + pad.getHelipadSize())
+                        > getHelicopterLocationX()) &&
+                (pad.getHelipadY() < getHelicopterLocationY()) &&
+                ((pad.getHelipadY() + pad.getHelipadSize())
+                        > getHelicopterLocationY()) &&
                 (speed == 0);
     }
 
@@ -187,21 +168,27 @@ public class Helicopter extends GameObject implements Steerable {
                         (int)location.getY() - dimension.getWidth()/2 -
                         (dimension.getWidth()*4),
                 (dimension.getWidth()),
-                (dimension.getWidth()), 0,360);;
-        x2 = turn.get(currentIndex).getX() + center.getX();
-        y2 = turn.get(currentIndex).getY() + center.getY();
-        g.drawLine(containerOrigin.getX() + (int)location.getX(), containerOrigin.getY() +
-                (int)location.getY() -
-                (dimension.getWidth()*4), containerOrigin.getX() + (int)location.getX(), (containerOrigin.getY() +
-                (int)location.getY() -
-                (dimension.getWidth()*4)) - (dimension.getWidth()*2));
-        g.setColor(ColorUtil.WHITE);
+                (dimension.getWidth()), 0,360);
+        g.drawLine(containerOrigin.getX() + (int)location.getX(),
+                containerOrigin.getY() + (int)location.getY() -
+                (dimension.getWidth()*4),
+                (int)(containerOrigin.getX() + (int)location.getX() +
+                        (turn.get(currentIndex).getX() * (dimension.getWidth()*2))),
+                (int)(containerOrigin.getY() + (int)location.getY() -
+                        (dimension.getWidth()*4) +
+                        (turn.get(currentIndex).getY() * (dimension.getWidth()*2))));
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));
-        g.drawString("f: " + fuel, center.getX() + heliSize,
-                center.getY() + heliSize);
-        g.drawString("w: " + water, center.getX() + heliSize,
-                center.getY() + 20 + heliSize);
+        g.drawString("f: " + fuel, containerOrigin.getX() + (int)location.getX() -
+                        dimension.getWidth() / 2,
+                containerOrigin.getY() +
+                        (int)location.getY() - dimension.getWidth()/2 -
+                        (dimension.getWidth()*4) + dimension.getWidth());
+        g.drawString("w: " + water, containerOrigin.getX() + (int)location.getX() -
+                        dimension.getWidth() / 2,
+                containerOrigin.getY() +
+                        (int)location.getY() - dimension.getWidth()/2 -
+                        (dimension.getWidth()*4) + dimension.getWidth() + 20);
     }
 
     @Override
