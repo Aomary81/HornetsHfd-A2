@@ -1,16 +1,12 @@
 package org.csc133.a2.gameobjects;
 
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 
 public class River extends GameObject{
-    private final static int DISP_W = Display.getInstance().getDisplayWidth();
-    private final static int DISP_H = Display.getInstance().getDisplayHeight();
-    private int top, bottom, start, end;
 
     public River(Dimension worldSize) {
         this.worldSize = worldSize;
@@ -22,13 +18,12 @@ public class River extends GameObject{
 
 
     int getRiverNorth() {
-        return top;
+        return 0;
     }
 
     int getRiverSouth() {
-        return top + bottom;
+        return 0;
     }
-
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.clearRect(containerOrigin.getX(), containerOrigin.getY(),

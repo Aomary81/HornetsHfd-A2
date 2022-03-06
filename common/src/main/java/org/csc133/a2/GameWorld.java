@@ -26,6 +26,7 @@ public class GameWorld {
     private ArrayList<GameObject> gameObjects;
     private Building building;
     Dimension worldSize;
+    private Fire fire;
 
     public GameWorld() {
         worldSize = new Dimension();
@@ -40,12 +41,13 @@ public class GameWorld {
         helipad = new Helipad(worldSize);
         river = new River(worldSize);
         building = new Building();
+        fire = new Fire(worldSize);
         helicopter = new Helicopter();
         fires = new ArrayList<>();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            fires.add(new Fire());
+            fires.add(new Fire(worldSize));
         }
         fires.get(1).setLocationX(DISP_W / 2 + r.nextInt(DISP_W / 4));
         fires.get(1).setLocationY(r.nextInt(DISP_H / 4));
@@ -55,6 +57,7 @@ public class GameWorld {
         gameObjects.add(river);
         gameObjects.add(helipad);
         gameObjects.add(building);
+        gameObjects.add(fire);
 /*        for(int i = 0; i < 3; i++) {
             gameObjects.add(fires.get(i));
         }

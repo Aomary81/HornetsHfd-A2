@@ -4,24 +4,27 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
+import com.codename1.ui.geom.Point2D;
 
 import java.util.Random;
 
 import static com.codename1.ui.CN.*;
 
 public class Fire extends GameObject{
-    private final static int DISP_W = Display.getInstance().getDisplayWidth();
-    private final static int DISP_H = Display.getInstance().getDisplayHeight();
-    private Point location;
     private int fireSize;
     private Random r;
 
-    public Fire() {
+    public Fire(Dimension worldSize) {
         r = new Random();
-        fireSize = r.nextInt(200);
-        location = new Point(DISP_W / 4 + r.nextInt(DISP_W / 4),
-                r.nextInt(DISP_H) / 4);
+        fireSize = r.nextInt(200) + 200;
+        this.worldSize = worldSize;
+        this.color = ColorUtil.MAGENTA;
+        this.location = new Point2D(500,
+                500);
+        this.dimension = new Dimension(fireSize, fireSize);
+
     }
 
     // Increase and decrease fire's size
@@ -36,11 +39,11 @@ public class Fire extends GameObject{
 
     // Gets the Point coordinate for Fires X and Y and the fire's size
     int getFireX() {
-        return location.getX() - fireSize / 4;
+        return (int)location.getX() - fireSize / 4;
     }
 
     int getFireY() {
-        return location.getY() - fireSize / 4;
+        return (int)location.getY() - fireSize / 4;
     }
 
     public int getFireSize() {
@@ -55,7 +58,7 @@ public class Fire extends GameObject{
         location.setY(locY);
     }
 
-    public void draw(Graphics g) {
+/*    public void draw(Graphics g) {
         g.setColor(ColorUtil.MAGENTA);
         g.fillArc(location.getX() - fireSize / 4,
                 location.getY() - fireSize / 4,
@@ -67,9 +70,13 @@ public class Fire extends GameObject{
         g.drawString("" + fireSize, location.getX() + (fireSize / 4),
                 location.getY() + (fireSize / 4));
     }
-
+*/
     @Override
     public void draw(Graphics g, Point containerOrigin) {
-        draw(g);
+        g.setColor(color);
+        g.fillArc(containerOrigin.getX() + (int)location.getX() - fireSize/4,
+                containerOrigin.getY() + (int)location.getY() - fireSize/4,
+                fireSize, fireSize, 0, 360);
+        //draw(g);
     }
 }
