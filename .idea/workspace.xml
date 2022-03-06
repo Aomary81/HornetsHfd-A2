@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="336d32c5-6f4b-4a8f-b637-9fea310958e7" name="Default Changelist" comment="Control Cluster is working">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/GameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/GameWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/gameobjects/Helicopter.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/gameobjects/Helicopter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/gameobjects/River.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/gameobjects/River.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/interfaces/Steerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/csc133/a2/interfaces/Steerable.java" afterDir="false" />
-    </list>
+    <list default="true" id="336d32c5-6f4b-4a8f-b637-9fea310958e7" name="Default Changelist" comment="Helicopter draw complete" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -831,7 +825,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646548173653</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Helicopter draw complete">
+      <created>1646552037323</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646552037323</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -864,6 +865,7 @@
     <MESSAGE value="added Helipad with Point2d and Dimension" />
     <MESSAGE value="added Fire with Point2d and Dimension" />
     <MESSAGE value="Control Cluster is working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Control Cluster is working" />
+    <MESSAGE value="Helicopter draw complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Helicopter draw complete" />
   </component>
 </project>
