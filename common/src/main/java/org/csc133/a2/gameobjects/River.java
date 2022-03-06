@@ -14,15 +14,18 @@ public class River extends GameObject{
         this.location = new Point2D(0, worldSize.getHeight());
         this.dimension = new Dimension(worldSize.getWidth(),
                 worldSize.getHeight());
+        System.err.println("NR: " + getRiverNorth() + " RS: " +getRiverSouth());
+
     }
 
 
     int getRiverNorth() {
-        return 0;
+        return (int)location.getY() - (worldSize.getHeight()/9 * 7);
     }
 
     int getRiverSouth() {
-        return 0;
+        return ((int)location.getY() - (worldSize.getHeight()/9 * 7)) +
+                dimension.getHeight()/9 * 2;
     }
     @Override
     public void draw(Graphics g, Point containerOrigin) {

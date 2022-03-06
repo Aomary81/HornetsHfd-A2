@@ -4,13 +4,17 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
+import com.codename1.ui.geom.Point2D;
+import org.csc133.a2.GameWorld;
+import org.csc133.a2.interfaces.Steerable;
 
 import java.util.ArrayList;
 
 import static com.codename1.ui.CN.*;
 
-public class Helicopter extends GameObject{
+public class Helicopter extends GameObject implements Steerable {
     private final static int DISP_W = Display.getInstance().getDisplayWidth();
     private final static int DISP_H = Display.getInstance().getDisplayHeight();
     private Point locationHeli;
@@ -28,7 +32,12 @@ public class Helicopter extends GameObject{
     private int water;
     private ArrayList<Point> turn, forward;
 
-    public Helicopter() {
+    public Helicopter(Dimension worldSize) {
+        this.worldSize = worldSize;
+        this.color = ColorUtil.YELLOW;
+        this.dimension = new Dimension(50, 50);
+        this.location = new Point2D(worldSize.getWidth()/2,
+                worldSize.getHeight());
         heliSize = 50;
         tailSize = 100;
         locationHeli = new Point(DISP_W / 2,
@@ -45,6 +54,8 @@ public class Helicopter extends GameObject{
             turning = new Point(rX, rY);
             turn.add(turning);
         }
+        System.err.println("heli: " + getHelicopterLocationX() + " Heli: " +getHelicopterLocationY());
+
     }
 
     // Changes the direction the helicopter is pointing
@@ -159,14 +170,31 @@ public class Helicopter extends GameObject{
         water = 0;
     }
 
-    public void draw(Graphics g) {
-        g.setColor(ColorUtil.rgb(255, 255, 0));
-        g.fillArc(center.getX() - heliSize / 2,
-                center.getY() - heliSize / 2,
-                heliSize, heliSize, 0, 360);
+    public int getHelicopterLocationX(){
+        return (int)location.getX() - dimension.getWidth() / 2;
+    }
+    public int getHelicopterLocationY(){
+        return (int)location.getY() - dimension.getWidth()/2 -
+                (dimension.getWidth()*4);
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin) {
+        g.setColor(color);
+        g.fillArc(containerOrigin.getX() + (int)location.getX() -
+                        dimension.getWidth() / 2,
+                containerOrigin.getY() +
+                        (int)location.getY() - dimension.getWidth()/2 -
+                        (dimension.getWidth()*4),
+                (dimension.getWidth()),
+                (dimension.getWidth()), 0,360);;
         x2 = turn.get(currentIndex).getX() + center.getX();
         y2 = turn.get(currentIndex).getY() + center.getY();
-        g.drawLine(center.getX(), center.getY(), x2, y2);
+        g.drawLine(containerOrigin.getX() + (int)location.getX(), containerOrigin.getY() +
+                (int)location.getY() -
+                (dimension.getWidth()*4), containerOrigin.getX() + (int)location.getX(), (containerOrigin.getY() +
+                (int)location.getY() -
+                (dimension.getWidth()*4)) - (dimension.getWidth()*2));
         g.setColor(ColorUtil.WHITE);
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));
@@ -177,7 +205,19 @@ public class Helicopter extends GameObject{
     }
 
     @Override
-    public void draw(Graphics g, Point containerOrigin) {
-        draw(g);
+    public void steerLeft() {
+        if (currentIndex == 0) {
+            currentIndex = turn.size() - 1;
+        }
+        currentIndex--;
+    }
+
+
+    @Override
+    public void steerRight() {
+        currentIndex++;
+        if (currentIndex > turn.size() - 1) {
+            currentIndex = 0;
+        }
     }
 }

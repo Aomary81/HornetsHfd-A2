@@ -43,7 +43,7 @@ public class GameWorld {
         river = new River(worldSize);
         building = new Building();
         fire = new Fire(worldSize);
-        helicopter = new Helicopter();
+        helicopter = new Helicopter(worldSize);
         fires = new ArrayList<>();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
