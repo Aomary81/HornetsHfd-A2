@@ -13,9 +13,12 @@ public class WildFire extends GameObjectCollection<Fire>{
     }
     @Override
     public void draw(Graphics g, Point containerOrigin) {
+        int flame = 0;
         for(Fire spot: getGameObjects()){
-            spot.draw(g, containerOrigin);
-
+            if(flame < 1000){
+                spot.draw(g, containerOrigin);
+                flame = flame + spot.getFireSize();
+            }
         }
     }
 }

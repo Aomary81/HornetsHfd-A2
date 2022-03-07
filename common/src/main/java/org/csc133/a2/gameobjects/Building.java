@@ -45,14 +45,19 @@ public class Building extends Fixed{
         return (dimension.getWidth() * dimension.getHeight());
     }
     public void setFireInBuilding(Fire fire){
-        fire.setLocationX((int)location.getX() + (dimension.getWidth()/2) + r.nextInt(dimension.getWidth()));
-        fire.setLocationY((int)location.getY() - (worldSize.getHeight()/20 *19) +r.nextInt(dimension.getHeight()));
+        fire.setLocationX((int)location.getX() + (dimension.getWidth()/2)
+                + r.nextInt(dimension.getWidth()));
+        fire.setLocationY((int)location.getY()
+                - (worldSize.getHeight()/20 *19)
+                +r.nextInt(dimension.getHeight()));
     }
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
-        g.drawRect(containerOrigin.getX() + (int)location.getX() + (dimension.getWidth()/2),
-                containerOrigin.getY() + (int)location.getY() - (worldSize.getHeight()/20 *19),
+        g.drawRect(containerOrigin.getX() + (int)location.getX()
+                        + (dimension.getWidth()/2),
+                containerOrigin.getY() + (int)location.getY()
+                        - (worldSize.getHeight()/20 *19),
                 dimension.getWidth(), dimension.getHeight());
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));

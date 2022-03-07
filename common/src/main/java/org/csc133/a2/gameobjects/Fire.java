@@ -66,14 +66,18 @@ public class Fire extends Fixed implements FireState {
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
-        g.fillArc(containerOrigin.getX() + (int) location.getX() - fireSize / 4+ r.nextInt(worldSize.getWidth()),
-                containerOrigin.getY() + (int) location.getY() - fireSize / 4 - r.nextInt(worldSize.getHeight()),
+        g.fillArc(containerOrigin.getX() + (int) location.getX()
+                        - fireSize / 4+ r.nextInt(worldSize.getWidth()),
+                containerOrigin.getY() + (int) location.getY() - fireSize / 4
+                        - r.nextInt(worldSize.getHeight()),
                 fireSize, fireSize, 0, 360);
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));
         g.drawString("" + fireSize,
-                containerOrigin.getX() + (int) location.getX() + (fireSize / 4 * 3),
-                containerOrigin.getY() + (int) location.getY() + (fireSize / 4 * 3));
+                containerOrigin.getX() + (int) location.getX()
+                        + (fireSize / 4 * 3),
+                containerOrigin.getY() + (int) location.getY()
+                        + (fireSize / 4 * 3));
     }
 
     @Override

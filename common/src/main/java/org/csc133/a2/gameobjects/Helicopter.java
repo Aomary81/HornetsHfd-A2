@@ -120,9 +120,10 @@ public class Helicopter extends GameObject implements Steerable {
     // Check is helicopter is over the fire
     public boolean overFire(Fire f) {
         if ((f.getFireX() < getHelicopterLocationX()) &&
-                ((f.getFireX() + f.getFireSize()) > getHelicopterLocationX()) &&
-                (f.getFireY() < getHelicopterLocationY()) &&
-                (((f.getFireY() + f.getFireSize()) > getHelicopterLocationY()))) {
+                ((f.getFireX() + f.getFireSize()) > getHelicopterLocationX())
+                && (f.getFireY() < getHelicopterLocationY())
+                && (((f.getFireY() + f.getFireSize())
+                > getHelicopterLocationY()))) {
             return true;
         } else {
             return false;
@@ -172,18 +173,22 @@ public class Helicopter extends GameObject implements Steerable {
                 containerOrigin.getY() + (int)location.getY() -
                 (dimension.getWidth()*4),
                 (int)(containerOrigin.getX() + (int)location.getX() +
-                        (turn.get(currentIndex).getX() * (dimension.getWidth()*2))),
+                        (turn.get(currentIndex).getX()
+                                * (dimension.getWidth()*2))),
                 (int)(containerOrigin.getY() + (int)location.getY() -
                         (dimension.getWidth()*4) +
-                        (turn.get(currentIndex).getY() * (dimension.getWidth()*2))));
+                        (turn.get(currentIndex).getY()
+                                * (dimension.getWidth()*2))));
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));
-        g.drawString("f: " + fuel, containerOrigin.getX() + (int)location.getX() -
+        g.drawString("f: " + fuel, containerOrigin.getX()
+                        + (int)location.getX() -
                         dimension.getWidth() / 2,
                 containerOrigin.getY() +
                         (int)location.getY() - dimension.getWidth()/2 -
                         (dimension.getWidth()*4) + dimension.getWidth());
-        g.drawString("w: " + water, containerOrigin.getX() + (int)location.getX() -
+        g.drawString("w: " + water, containerOrigin.getX()
+                        + (int)location.getX() -
                         dimension.getWidth() / 2,
                 containerOrigin.getY() +
                         (int)location.getY() - dimension.getWidth()/2 -

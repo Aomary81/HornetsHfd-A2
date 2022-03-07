@@ -34,7 +34,8 @@ public class Helipad extends Fixed{
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
-        g.drawArc(containerOrigin.getX() + (int)location.getX() - (dimension.getWidth()/8 *3),
+        g.drawArc(containerOrigin.getX() + (int)location.getX()
+                        - (dimension.getWidth()/8 *3),
                 containerOrigin.getY() +
                         (int)location.getY() - dimension.getWidth()/2 -
                         dimension.getWidth() + dimension.getWidth()/8,
