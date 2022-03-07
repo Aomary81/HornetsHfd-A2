@@ -21,20 +21,22 @@ public class GameWorld {
     private River river;
     private Helicopter helicopter;
     private int water, fuel, ticks;
-    private ArrayList<Fire> fires;
     private ArrayList<Fire> deadFires;
     private Random r;
     private ArrayList<GameObject> gameObjects;
     private Building building;
-    Dimension worldSize;
+    private Dimension worldSize;
+    private WildFire wildFire;
+    private Build classroom;
     private Fire fire;
+    private double damage, value;
 
     public GameWorld() {
         worldSize = new Dimension();
         r = new Random();
         fuel = 25000;
         water = 0;
-
+        damage = 0;
         init();
     }
 
@@ -44,27 +46,34 @@ public class GameWorld {
         building = new Building(worldSize);
         fire = new Fire(worldSize);
         helicopter = new Helicopter(worldSize);
-        fires = new ArrayList<>();
+        wildFire = new WildFire();
+        classroom = new Build();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
         ticks = 0;
         gameObjects.add(river);
         gameObjects.add(helipad);
-        gameObjects.add(building);
-        gameObjects.add(fire);
+        gameObjects.add(classroom);
+        gameObjects.add(wildFire);
         gameObjects.add(helicopter);
 
     }
     void tick() {
         ticks++;
+
+        if(getFireSize() < 1000) {
+            wildFire.add(new Fire(worldSize));
+        }
         if (ticks % 3 == 0) {
+            for(Fire spot: wildFire)
             fire.grow();
         }
+
         helicopter.move();
         fuel = helicopter.fuelConsumption();
         water = helicopter.getWaterLevel();
         if ((fuel <= 0) ||
-                (fires.isEmpty() && helicopter.isOverHelipad(helipad))) {
+                (wildFire.size()==0 && helicopter.isOverHelipad(helipad))) {
             gameOver();
         }
     }
@@ -127,20 +136,20 @@ public class GameWorld {
         return String.valueOf(fuel);
     }
     public String getFires(){
-        return String.valueOf(fires.size());
+        return String.valueOf(wildFire.size());
     }
-    public String getFireSize(){
+    public int getFireSize(){
         int flame = 0;
-        for(Fire spot: fires){
+        for(Fire spot: wildFire){
             flame = flame + spot.getFireSize();
         }
-        return String.valueOf(flame);
+        return flame;
     }
     public String getDamage(){
-        return null;
+        return String.valueOf(0);
     }
     public String getLoss(){
-        return null;
+        return String.valueOf(0);
     }
 
     public void setDimension(Dimension worldSize) {

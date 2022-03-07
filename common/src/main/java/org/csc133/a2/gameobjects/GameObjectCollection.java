@@ -19,10 +19,13 @@ public abstract class GameObjectCollection<T> extends GameObject implements Iter
             return gameObjects.get(index++);
         }
     }
+
     public GameObjectCollection(){
         gameObjects = new ArrayList<>();
     }
-
+    ArrayList<T> getGameObjects(){
+        return gameObjects;
+    }
     public void add(T gameObject){
         gameObjects.add(gameObject);
     }

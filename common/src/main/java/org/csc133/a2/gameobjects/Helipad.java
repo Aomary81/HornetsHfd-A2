@@ -10,7 +10,6 @@ public class Helipad extends Fixed{
     private int helipadId;
 
     public Helipad(Dimension worldSize) {
-        helipadId = getFixedObjId();
         this.worldSize = worldSize;
         this.color = ColorUtil.GRAY;
         this.dimension = new Dimension(200, 200);
