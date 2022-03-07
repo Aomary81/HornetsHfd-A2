@@ -19,7 +19,6 @@ public class MapView extends Container {
     @Override
     public void laidOut(){
         gw.setDimension(new Dimension(this.getWidth(),this.getHeight()));
-        System.err.println(new Dimension(this.getWidth(),this.getHeight()));
         gw.init();
     }
     @Override

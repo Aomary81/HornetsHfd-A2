@@ -34,7 +34,6 @@ public class Helicopter extends GameObject implements Steerable {
             turning = new Point2D(Math.cos(angle), Math.sin(angle));
             turn.add(turning);
         }
-        System.err.println("heli: " + getHelicopterLocationX() + " Heli: " +getHelicopterLocationY());
 
     }
 

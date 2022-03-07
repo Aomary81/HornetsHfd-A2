@@ -15,7 +15,6 @@ public class River extends Fixed{
         this.location = new Point2D(0, worldSize.getHeight());
         this.dimension = new Dimension(worldSize.getWidth(),
                 worldSize.getHeight());
-        System.err.println("NR: " + getRiverNorth() + " RS: " +getRiverSouth());
 
     }
 

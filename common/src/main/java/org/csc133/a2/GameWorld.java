@@ -24,10 +24,9 @@ public class GameWorld {
     private ArrayList<Fire> deadFires;
     private Random r;
     private ArrayList<GameObject> gameObjects;
-    private Building building;
+    private Building building1, building2, building3;
     private Dimension worldSize;
     private WildFire wildFire;
-    private Build classroom;
     private Fire fire;
     private double damage, value;
 
@@ -43,32 +42,42 @@ public class GameWorld {
     public void init() {
         helipad = new Helipad(worldSize);
         river = new River(worldSize);
-        building = new Building(worldSize);
+        building1 = new Building(worldSize);
+        building2 = new Building(worldSize);
+        building2.setBuildingLocationX(worldSize.getWidth()/16);
+        building2.setBuildingLocationY(worldSize.getHeight()/2*3);
+        building2.setBuildingDimension(worldSize.getWidth()/10,
+                worldSize.getHeight()/10 * 3);
+        building3 = new Building(worldSize);
+        building3.setBuildingLocationX(worldSize.getWidth()/16 * 11);
+        building3.setBuildingLocationY(worldSize.getHeight()/2*3);
+        building3.setBuildingDimension(worldSize.getWidth()/10,
+                worldSize.getHeight()/10 * 3);
         fire = new Fire(worldSize);
         helicopter = new Helicopter(worldSize);
         wildFire = new WildFire();
-        classroom = new Build();
         deadFires = new ArrayList<>();
         gameObjects = new ArrayList<>();
         ticks = 0;
         gameObjects.add(river);
         gameObjects.add(helipad);
-        gameObjects.add(classroom);
+        gameObjects.add(building1);
+        gameObjects.add(building2);
+        gameObjects.add(building3);
         gameObjects.add(wildFire);
         gameObjects.add(helicopter);
-
     }
     void tick() {
         ticks++;
 
-        if(getFireSize() < 1000) {
-            wildFire.add(new Fire(worldSize));
-        }
+
         if (ticks % 3 == 0) {
             for(Fire spot: wildFire)
             fire.grow();
         }
-
+        if(getFireSize() < 1000) {
+            wildFire.add(new Fire(worldSize));
+        }
         helicopter.move();
         fuel = helicopter.fuelConsumption();
         water = helicopter.getWaterLevel();

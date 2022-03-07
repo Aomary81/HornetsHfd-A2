@@ -31,6 +31,10 @@ public class Building extends Fixed{
     public void setBuildingLocationY(double y){
         location.setY(y);
     }
+    public void setBuildingDimension(int x, int y){
+        dimension.setWidth(x);
+        dimension.setHeight(y);
+    }
     public int getBuildingLocationX(){
         return (int)location.getX();
     }
