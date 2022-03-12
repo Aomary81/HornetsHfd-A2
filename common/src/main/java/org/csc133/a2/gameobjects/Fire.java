@@ -6,13 +6,12 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
-import org.csc133.a2.interfaces.FireState;
 
 import java.util.Random;
 
 import static com.codename1.ui.CN.*;
 
-public class Fire extends Fixed implements FireState {
+public class Fire extends Fixed{
     private int fireSize, fireId;
     private Random r;
 
@@ -80,18 +79,4 @@ public class Fire extends Fixed implements FireState {
                         + (fireSize / 4 * 3));
     }
 
-    @Override
-    public void unStarted() {
-
-    }
-
-    @Override
-    public void burning() {
-
-    }
-
-    @Override
-    public void extinguished() {
-
-    }
 }

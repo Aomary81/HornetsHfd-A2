@@ -147,7 +147,7 @@ public class GameWorld {
     public String getFires(){
         return String.valueOf(wildFire.size());
     }
-    public int getFireSize(){
+    public static int getFireSize(){
         int flame = 0;
         for(Fire spot: wildFire){
             flame = flame + spot.getFireSize();
