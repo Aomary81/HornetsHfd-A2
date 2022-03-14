@@ -106,10 +106,10 @@ public class Helicopter extends GameObject implements Steerable {
     }
 
     // Checks to see if center of helicopter is over the river
-    public boolean overRiver(River r) {
-        if ((r.getRiverNorth() + dimension.getWidth() / 2
+    public boolean overRiver(River river) {
+        if ((river.getRiverNorth() - dimension.getWidth()/2
                 < getHelicopterLocationY()) &&
-                (r.getRiverSouth() - dimension.getWidth() / 2
+                (river.getRiverSouth() - dimension.getWidth()
                         > getHelicopterLocationY())) {
             return true;
         } else {

@@ -1,12 +1,10 @@
 package org.csc133.a2.interfaces;
 
-import org.csc133.a2.GameWorld;
+import org.csc133.a2.gameobjects.Fire;
 
 public class UnStarted implements FireState {
     @Override
-    public void nextFireState(FireContext fireContext) {
-        if (GameWorld.getFireSize() < 1000) {
-            fireContext.setFireState(new Burning());
-        }
+    public void nextFireState(Fire fire) {
+            fire.setFireState(new Burning());
     }
 }

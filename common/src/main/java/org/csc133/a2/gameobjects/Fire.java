@@ -6,6 +6,8 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
+import org.csc133.a2.interfaces.FireState;
+import org.csc133.a2.interfaces.UnStarted;
 
 import java.util.Random;
 
@@ -14,15 +16,15 @@ import static com.codename1.ui.CN.*;
 public class Fire extends Fixed{
     private int fireSize, fireId;
     private Random r;
+    private FireState fireState;
 
     public Fire(Dimension worldSize) {
-
+        this.fireState = new UnStarted();
         r = new Random();
         fireSize = 5 + r.nextInt(10);
         this.worldSize = worldSize;
+        this.location = new Point2D(0, worldSize.getHeight());
         this.color = ColorUtil.MAGENTA;
-        this.location = new Point2D(0,
-                worldSize.getHeight());
         this.dimension = new Dimension(fireSize, fireSize);
 
     }
@@ -79,4 +81,10 @@ public class Fire extends Fixed{
                         + (fireSize / 4 * 3));
     }
 
+    public void setFireState(FireState fireState){
+        this.fireState = fireState;
+    }
+    public void nextFireState(){
+        this.fireState.nextFireState(this);
+    }
 }

@@ -10,8 +10,6 @@ import org.csc133.a2.gameobjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static org.csc133.a2.gameobjects.Helicopter.decelerate;
-
 public class GameWorld {
     private final Button RESTART = new Button("Restart");
     private final Button EXIT = new Button("Exit");
@@ -21,12 +19,11 @@ public class GameWorld {
     private River river;
     private Helicopter helicopter;
     private int water, fuel, ticks;
-    private ArrayList<Fire> deadFires;
     private Random r;
     private ArrayList<GameObject> gameObjects;
     private Building building1, building2, building3;
     private Dimension worldSize;
-    private WildFire wildFire;
+    private WildFire wildFire, deadFires;
     private Fire fire;
     private double damage, value;
 
@@ -54,9 +51,11 @@ public class GameWorld {
         building3.setBuildingDimension(worldSize.getWidth()/10,
                 worldSize.getHeight()/10 * 3);
         fire = new Fire(worldSize);
+        System.err.println(fire);
+        fire.nextFireState();
         helicopter = new Helicopter(worldSize);
         wildFire = new WildFire();
-        deadFires = new ArrayList<>();
+        deadFires = new WildFire();
         gameObjects = new ArrayList<>();
         ticks = 0;
         gameObjects.add(river);
@@ -69,14 +68,13 @@ public class GameWorld {
     }
     void tick() {
         ticks++;
-
-
+        if(getFireSize()<1000){
+            for(Fire spot: wildFire)
+                spot = new Fire(worldSize);
+        }
         if (ticks % 3 == 0) {
             for(Fire spot: wildFire)
             fire.grow();
-        }
-        if(getFireSize() < 1000) {
-            wildFire.add(new Fire(worldSize));
         }
         helicopter.move();
         fuel = helicopter.fuelConsumption();
@@ -102,9 +100,16 @@ public class GameWorld {
         }
     }
     public void fight() {
-        if (water > fire.getFireSize()) {
-                    fire.shrink(water);
+        for(Fire spot: wildFire) {
+            if (helicopter.overFire(spot)) {
+                if (water > fire.getFireSize()) {
+                    deadFires.add(spot);
+                } else {
+                    spot.shrink(water);
                 }
+            }
+        }
+        wildFire.remove(deadFires);
         helicopter.fightFire();
 
     }
@@ -134,31 +139,31 @@ public class GameWorld {
         return gameObjects;
     }
 
-    public String getHeading() {
-        return String.valueOf(helicopter.heading());
+    public int getHeading() {
+        return helicopter.heading();
     }
 
-    public String getSpeed() {
-        return String.valueOf(Helicopter.getSpeed());
+    public int getSpeed() {
+        return helicopter.getSpeed();
     }
-    public String getFuel(){
-        return String.valueOf(fuel);
+    public int getFuel(){
+        return fuel;
     }
-    public String getFires(){
-        return String.valueOf(wildFire.size());
+    public int getFires(){
+        return wildFire.size();
     }
-    public static int getFireSize(){
-        int flame = 0;
+    public int getFireSize(){
+        double flame = 0;
         for(Fire spot: wildFire){
-            flame = flame + spot.getFireSize();
+            flame = flame + spot.areaOfFire();
         }
-        return flame;
+        return (int)flame;
     }
-    public String getDamage(){
-        return String.valueOf(0);
+    public int getDamage(){
+        return 0;
     }
-    public String getLoss(){
-        return String.valueOf(0);
+    public double getLoss(){
+        return 0;
     }
 
     public void setDimension(Dimension worldSize) {
