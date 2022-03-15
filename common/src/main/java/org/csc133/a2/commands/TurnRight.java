@@ -9,7 +9,7 @@ public class TurnRight extends Command {
     private GameWorld gw;
 
     public TurnRight(GameWorld gw) {
-        super("TurnRight");
+        super("Right");
         this.gw = gw;
     }
     @Override

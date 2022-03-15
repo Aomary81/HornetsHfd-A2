@@ -1,7 +1,7 @@
 package org.csc133.a2.interfaces;
 
+import org.csc133.a2.gameobjects.Fire;
+
 public interface FireState {
-    public void unStarted();
-    public void burning();
-    public void extinguished();
+    public void nextState(Fire fire);
 }

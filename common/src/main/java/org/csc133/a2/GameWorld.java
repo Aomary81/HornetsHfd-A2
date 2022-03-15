@@ -67,9 +67,9 @@ public class GameWorld {
         gameObjects.add(wildFire);
         gameObjects.add(helicopter);
     }
+
     void tick() {
         ticks++;
-
 
         if (ticks % 3 == 0) {
             for(Fire spot: wildFire)

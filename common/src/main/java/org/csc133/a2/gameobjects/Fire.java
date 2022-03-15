@@ -7,17 +7,19 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Point2D;
 import org.csc133.a2.interfaces.FireState;
+import org.csc133.a2.interfaces.UnStarted;
 
 import java.util.Random;
 
 import static com.codename1.ui.CN.*;
 
-public class Fire extends Fixed implements FireState {
+public class Fire extends Fixed {
     private int fireSize, fireId;
     private Random r;
+    private FireState state;
 
     public Fire(Dimension worldSize) {
-
+        this.state = new UnStarted();
         r = new Random();
         fireSize = 5 + r.nextInt(10);
         this.worldSize = worldSize;
@@ -79,19 +81,11 @@ public class Fire extends Fixed implements FireState {
                 containerOrigin.getY() + (int) location.getY()
                         + (fireSize / 4 * 3));
     }
-
-    @Override
-    public void unStarted() {
-
+    public void setState(FireState state){
+        this.state = state;
     }
 
-    @Override
-    public void burning() {
-
-    }
-
-    @Override
-    public void extinguished() {
-
+    public void getState(){
+        this.state.nextState(this);
     }
 }
