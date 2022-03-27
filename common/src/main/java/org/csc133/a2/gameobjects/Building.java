@@ -20,9 +20,11 @@ public class Building extends Fixed{
         value = 100 + r.nextInt(901);
         this.worldSize = worldSize;
         this.color = ColorUtil.rgb(255,0,0);
-        this.location = new Point2D(0, worldSize.getHeight());
+        this.location = new Point2D((worldSize.getWidth()/4),
+                (worldSize.getHeight()/20));
         this.dimension = new Dimension(worldSize.getWidth()/2,
                 worldSize.getHeight()/10);
+        System.err.println(dimension);
     }
 
     public void setBuildingLocationX(double x){
@@ -45,32 +47,30 @@ public class Building extends Fixed{
         return (dimension.getWidth() * dimension.getHeight());
     }
     public void setFireInBuilding(Fire fire){
-        fire.setLocationX((int)location.getX() + (dimension.getWidth()/2)
-                + r.nextInt(dimension.getWidth()));
-        fire.setLocationY((int)location.getY()
-                - (worldSize.getHeight()/20 *19)
+        Random r = new Random();
+        fire.setLocationX((getBuildingLocationX() - (fire.getFireSize()/2)
+                +r.nextInt(dimension.getWidth())));
+        fire.setLocationY(getBuildingLocationY() - (fire.getFireSize()/2)
                 +r.nextInt(dimension.getHeight()));
     }
     @Override
     public void draw(Graphics g, Point containerOrigin) {
         g.setColor(color);
-        g.drawRect(containerOrigin.getX() + (int)location.getX()
-                        + (dimension.getWidth()/2),
-                containerOrigin.getY() + (int)location.getY()
-                        - (worldSize.getHeight()/20 *19),
+        g.drawRect(containerOrigin.getX() + (int)location.getX(),
+                containerOrigin.getY() +  (int)location.getY(),
                 dimension.getWidth(), dimension.getHeight());
         g.setFont(Font.createSystemFont(FACE_MONOSPACE, STYLE_BOLD,
                 SIZE_MEDIUM));
 
         g.drawString("V: " + value,
                 containerOrigin.getX() + (int)location.getX()
-                        + (dimension.getWidth()/2 *3 +5),
+                        + (dimension.getWidth() + 10),
                 containerOrigin.getY() + (int)location.getY()
-                        - (worldSize.getHeight()/20 *18));
+                        + dimension.getHeight() - 60);
         g.drawString("D: " + damage,
                 containerOrigin.getX() + (int)location.getX()
-                        + (dimension.getWidth()/2 *3 + 5),
+                        + (dimension.getWidth() + 10),
                 containerOrigin.getY() + (int)location.getY()
-                        - (worldSize.getHeight()/20 *18) + 25);
+                        + (dimension.getHeight() - 25));
     }
 }
